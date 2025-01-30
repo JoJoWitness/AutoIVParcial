@@ -1,0 +1,36 @@
+---
+import logo from '../../assets/BakeryLogo.svg'
+import Button from '../elements/Button.astro'
+
+---
+
+<nav class="h-full flex flex-col items-center p-10 w-1/4" >
+  <img src={logo.src} alt="Logo" class="mb-4" style={{ height: '200px' }} />
+
+  <div class="flex flex-col gap-4 w-full items-center h-full">
+    <Button
+    text='Inicio'
+    path='/'
+  />
+  <Button
+    text='Producción'
+    path='/'
+  />
+  <Button
+    text='Ventas'
+    path='/'
+  />
+  <Button
+    text='Stock'
+    path='/'
+  />
+  </div>
+  
+  <div class="flex flex-col gap-4 w-full items-center">
+    <p class="text-tertiary font-medium">Dia: <span class="font-bold">1</span></p>
+    <button class="rounded-[30px] border font-bold w-4/5 border-3 p-2 border-tertiary bg-tertiary text-background cursor-pointer  active:scale-95">
+      Siguiente dia
+    </button>
+  </div>
+
+</nav>
