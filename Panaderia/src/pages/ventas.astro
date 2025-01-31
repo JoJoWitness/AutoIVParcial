@@ -1,0 +1,113 @@
+---
+import IngredientBar from '../components/elements/IngredientBar.astro';
+import VerticalImgContainer from '../components/elements/verticalImgContainer.astro';
+import Layout from '../layouts/Layout.astro';
+import harina from '../assets/flour-791839_1920.jpg'
+import azucar from '../assets/sugar-cubes-258116_1920.jpg'
+import mantequilla from '../assets/food-3179853_1920.jpg'
+import leche from '../assets/milk-can-1990075_1920.jpg';
+import huevos from '../assets/eggs-2048476_1920.jpg';
+import { PieChart } from '@mui/x-charts/PieChart';
+import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
+import { BarChart } from '@mui/x-charts';
+import type { colors } from '@mui/material';
+import { DBcolumn } from '../components/elements/dbColumn';
+
+const dbColumnsData = [
+  { day: 1, venta1: 10, venta2: 20, venta3: 30 },
+  { day: 2, venta1: 15, venta2: 25, venta3: 35 },
+  { day: 3, venta1: 20, venta2: 30, venta3: 40 },
+  { day: 4, venta1: 25, venta2: 35, venta3: 45 },
+  { day: 5, venta1: 30, venta2: 40, venta3: 50 },
+  { day: 6, venta1: 35, venta2: 45, venta3: 55 },
+  { day: 7, venta1: 40, venta2: 50, venta3: 60 },
+  { day: 8, venta1: 45, venta2: 55, venta3: 65 },
+  { day: 9, venta1: 50, venta2: 60, venta3: 70 },
+  { day: 10, venta1: 55, venta2: 65, venta3: 75 },
+];
+
+---
+
+<Layout>
+	<div class="flex flex-col w-full justify-bewteen gap-[30px] ">
+
+		<div class="flex gap-3 w-full h-full bg-background rounded-[25px] px-12 py-10 max-h-[500px] items-center">
+			<div class="flex flex-col h-full w-full gap-10 ">
+				<p class="text-tertiary font-medium">Historial de ventas</p>
+				<div class="text-background font-bold flex flex-col h-4/5 w-full overflow-x-scroll bg-secondary">
+						<div class="flex w-full h-1/4 bg-secondary h-[50px]">
+							<div class="flex flex-col items-center justify-center w-[200px] border-r-2 border-background">
+								<p>Productos</p>
+							</div>
+							<div class="flex flex-col items-center justify-center flex-1">
+								<p>Ventas por dia</p>
+							</div>
+						</div>
+
+						<div class="flex w-full h-full">
+							<div class="flex flex-col">
+								<div class="flex items-center justify-center w-[200px] h-[50px] border-r-2 border-background bg-secondary">
+								</div>
+								<div class="flex items-center justify-center w-[200px] h-[50px] border-r-2 border-background bg-primary">
+									<p>Pan</p>
+								</div>
+								<div class="flex items-center justify-center w-[200px] h-[50px] border-r-2 border-background bg-tertiary">
+									<p>Galletas</p>
+								</div>
+								<div class="flex items-center justify-center w-[200px] h-[50px] border-r-2 border-background bg-primary">
+									<p>Ponques</p>
+							</div>
+							</div>
+								{dbColumnsData.map((data) => (
+									<DBcolumn  {...data} />
+							))}
+						</div>
+						
+				</div>
+				
+			</div>
+		</div>
+
+
+    
+		<div class="flex gap-4 w-full h-full justify-evenly bg-background rounded-[25px] px-12 py-10 max-h-[500px] items-center">
+			<div class="flex flex-col gap-10 ">
+				<p class="text-tertiary font-medium">Ventas de ayer</p>
+				<PieChart
+					series={[
+						{
+							data: [
+								{ id: 0, value: 38, label: 'Pan' },
+								{ id: 1, value: 120, label: 'Galletas' },
+								{ id: 2, value: 75, label: 'Ponque' },
+							],
+						},
+					]}
+					colors={['#dc4f43', '#F7924f', '#FFcc73']}
+					width={400}
+					height={200}
+					client:load
+				/>
+			</div>
+			<div class="flex flex-col gap-10 ">
+				<p class="text-tertiary font-medium">Ventas de Totales</p>
+				<PieChart
+					series={[
+						{
+							data: [
+								{ id: 0, value: 1162, label: 'Pan' },
+								{ id: 1, value: 2570, label: 'Galletas' },
+								{ id: 2, value: 1800, label: 'Ponque' },
+							],
+						},
+					]}
+					colors={['#00cadc', '#49c3fb', '#65a6fa']}
+					width={400}
+					height={200}
+					client:load
+				/>
+			</div>
+		</div>
+		
+  </div>
+</Layout>
