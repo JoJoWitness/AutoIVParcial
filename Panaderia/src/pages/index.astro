@@ -5,15 +5,15 @@ import Layout from '../layouts/Layout.astro';
 import pan from '../assets/loaf-7445434_1920.jpg';
 import galletas from "../assets/cookies-8082386_1920.jpg"
 import ponques from "../assets/muffin-4430010_1920.jpg"
-
+import { PieChart } from '@mui/x-charts/PieChart';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<div class="flex flex-col w-full justify-bewteen gap-8">
-		<div class="flex flex-col gap-4 w-3/5 h-full bg-background rounded-[25px] p-6 ">
+	<div class="flex flex-col w-3/5 justify-bewteen gap-[30px]">
+		<div class="flex flex-col gap-4 w-full h-full bg-background rounded-[25px] p-6 max-h-[500px]">
 			<p class="text-tertiary font-medium">Materia Prima</p>
 			<div class="flex justify-center gap-8 w-full h-full">
 			<IngredientBar text='Harina' total={140} current={60} unit='kg' />
@@ -24,8 +24,8 @@ import ponques from "../assets/muffin-4430010_1920.jpg"
 		
 		</div>
 		</div>
-		<div class="flex flex-col gap-4 w-3/5 h-full bg-background rounded-[25px] p-6 ">
-			<p class="text-tertiary font-medium">Materia Prima</p>
+		<div class="flex flex-col gap-4 w-full h-full bg-background rounded-[25px] p-6 max-h-[500px]">
+			<p class="text-tertiary font-medium">Existencia de productos</p>
 			<div class="flex justify-center gap-8 w-full h-full">
 				<VerticalImgContainer title={"Pan"} current={50} img={pan} />
 				<VerticalImgContainer title={"Galletas"} current={200} img={galletas} />
@@ -34,6 +34,49 @@ import ponques from "../assets/muffin-4430010_1920.jpg"
 			
 		</div>
 	
+	</div>
+
+	<div class="flex flex-col gap-8 w-2/5 h-full bg-background rounded-[25px]  p-6 justify-center">
+		<div class="flex flex-col gap-10 ">
+			<p class="text-tertiary font-medium">Ventas de ayer</p>
+			<PieChart
+				series={[
+					{
+						data: [
+							{ id: 0, value: 38, label: 'Pan' },
+							{ id: 1, value: 120, label: 'Galletas' },
+							{ id: 2, value: 75, label: 'Ponque' },
+						],
+					},
+				]}
+				colors={['#dc4f43', '#F7924f', '#FFcc73']}
+				width={400}
+				height={200}
+	
+				client:load
+			/>
+		</div>
+		<div class="flex flex-col gap-10 ">
+			<p class="text-tertiary font-medium">Ventas de Totales</p>
+			<PieChart
+				series={[
+					{
+						data: [
+							{ id: 0, value: 1162, label: 'Pan' },
+							{ id: 1, value: 2570, label: 'Galletas' },
+							{ id: 2, value: 1800, label: 'Ponque' },
+						],
+					},
+				]}
+				colors={['#00cadc', '#49c3fb', '#65a6fa']}
+				width={400}
+				height={200}
+	
+				client:load
+			/>
+		</div>
+	
+		
 	</div>
 	
 </Layout>

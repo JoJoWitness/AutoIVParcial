@@ -1,0 +1,84 @@
+---
+import IngredientBar from '../components/elements/IngredientBar.astro';
+import VerticalImgContainer from '../components/elements/verticalImgContainer.astro';
+import Layout from '../layouts/Layout.astro';
+import pan from '../assets/loaf-7445434_1920.jpg';
+import galletas from "../assets/cookies-8082386_1920.jpg"
+import ponques from "../assets/muffin-4430010_1920.jpg"
+import { PieChart } from '@mui/x-charts/PieChart';
+import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
+import { BarChart } from '@mui/x-charts';
+import type { colors } from '@mui/material';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+	<div class="flex flex-col w-full justify-bewteen gap-[30px] ">
+    
+		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
+			<div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de pan de ayer</p>
+        <HorizontalImgContainer current={40} img={pan}/>
+      </div>
+      <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
+
+      <div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de pan en la semana</p>
+        <BarChart
+          xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
+          series={[{ data: [40, 43, 38, 41, 40] }]}
+          width={600}
+          height={220}
+          client:load
+          colors={['#ffcc73']}
+        />
+      </div> 
+		</div>
+
+		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
+			<div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
+        <HorizontalImgContainer current={70} img={galletas}/>
+      </div>
+      <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
+
+      <div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
+        <BarChart
+          xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
+          series={[{ data: [70, 68, 69, 67, 70] }]}
+          width={600}
+          height={220}
+          client:load
+          colors={['#dc4f43']}
+        />
+		</div>
+     
+			
+		</div>
+
+    <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
+			<div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
+        <HorizontalImgContainer current={59} img={ponques}/>
+      </div>
+      <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
+
+      <div class="flex flex-col gap-8 h-full" >
+        <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
+        <BarChart
+          xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
+          series={[{ data: [60, 62, 65, 58, 59] }]}
+          width={600}
+          height={220}
+          client:load
+          colors={['#cf005d']}
+        />
+		</div>
+	
+	</div>
+  </div>
+
+</Layout>

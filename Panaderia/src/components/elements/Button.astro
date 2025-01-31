@@ -6,7 +6,8 @@ interface Props {
 
 const {text, path } = Astro.props as Props;
 ---
-
-<button class="rounded-[30px] border border-secondary font-bold text-tertiary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98">
-  {text}
-</button>
+<a href={path} class="w-full flex justify-center">
+  <button class="rounded-[30px] border border-secondary font-bold text-tertiary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98">
+    {text}
+  </button>
+</a>

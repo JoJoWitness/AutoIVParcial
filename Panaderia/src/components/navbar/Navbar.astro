@@ -5,7 +5,10 @@ import Button from '../elements/Button.astro'
 ---
 
 <nav class="h-full flex flex-col items-center p-10 w-1/4" >
-  <img src={logo.src} alt="Logo" class="mb-4" style={{ height: '200px' }} />
+  <a href="/" class="flex justify-center">
+    <img src={logo.src} alt="Logo" class="mb-4" style={{ height: '200px' }} />
+  </a>
+
 
   <div class="flex flex-col gap-4 w-full items-center h-full">
     <Button
@@ -14,7 +17,7 @@ import Button from '../elements/Button.astro'
   />
   <Button
     text='Producción'
-    path='/'
+    path='/productos'
   />
   <Button
     text='Ventas'
