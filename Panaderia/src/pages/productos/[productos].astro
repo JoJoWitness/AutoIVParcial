@@ -1,17 +1,14 @@
 ---
-import IngredientBar from '../components/elements/IngredientBar.astro';
-import VerticalImgContainer from '../components/elements/verticalImgContainer.astro';
-import Layout from '../layouts/Layout.astro';
-import pan from '../assets/loaf-7445434_1920.jpg';
-import galletas from "../assets/cookies-8082386_1920.jpg"
-import ponques from "../assets/muffin-4430010_1920.jpg"
-import { PieChart } from '@mui/x-charts/PieChart';
-import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
+import Layout from '../../layouts/Layout.astro';
+import pan from '../../assets/loaf-7445434_1920.jpg';
+import galletas from "../../assets/cookies-8082386_1920.jpg"
+import ponques from "../../assets/muffin-4430010_1920.jpg"
+import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
-import type { colors } from '@mui/material';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const {productos} = Astro.params;
+
+console.log("ryuk " + productos);
 ---
 
 <Layout>

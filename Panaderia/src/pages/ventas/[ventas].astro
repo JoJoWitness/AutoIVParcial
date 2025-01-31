@@ -1,17 +1,8 @@
 ---
-import IngredientBar from '../components/elements/IngredientBar.astro';
-import VerticalImgContainer from '../components/elements/verticalImgContainer.astro';
-import Layout from '../layouts/Layout.astro';
-import harina from '../assets/flour-791839_1920.jpg'
-import azucar from '../assets/sugar-cubes-258116_1920.jpg'
-import mantequilla from '../assets/food-3179853_1920.jpg'
-import leche from '../assets/milk-can-1990075_1920.jpg';
-import huevos from '../assets/eggs-2048476_1920.jpg';
+
+import Layout from '../../layouts/Layout.astro';
 import { PieChart } from '@mui/x-charts/PieChart';
-import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
-import { BarChart } from '@mui/x-charts';
-import type { colors } from '@mui/material';
-import { DBcolumn } from '../components/elements/dbColumn';
+import { DBcolumn } from '../../components/elements/dbColumn';
 
 const dbColumnsData = [
   { day: 1, venta1: 10, venta2: 20, venta3: 30 },
@@ -25,6 +16,8 @@ const dbColumnsData = [
   { day: 9, venta1: 50, venta2: 60, venta3: 70 },
   { day: 10, venta1: 55, venta2: 65, venta3: 75 },
 ];
+
+const {ventas} = Astro.params;
 
 ---
 

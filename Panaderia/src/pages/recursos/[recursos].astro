@@ -1,16 +1,14 @@
 ---
-import IngredientBar from '../components/elements/IngredientBar.astro';
-import VerticalImgContainer from '../components/elements/verticalImgContainer.astro';
-import Layout from '../layouts/Layout.astro';
-import harina from '../assets/flour-791839_1920.jpg'
-import azucar from '../assets/sugar-cubes-258116_1920.jpg'
-import mantequilla from '../assets/food-3179853_1920.jpg'
-import leche from '../assets/milk-can-1990075_1920.jpg';
-import huevos from '../assets/eggs-2048476_1920.jpg';
-import { PieChart } from '@mui/x-charts/PieChart';
-import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
+import Layout from '../../layouts/Layout.astro';
+import harina from '../../assets/flour-791839_1920.jpg'
+import azucar from '../../assets/sugar-cubes-258116_1920.jpg'
+import mantequilla from '../../assets/food-3179853_1920.jpg'
+import leche from '../../assets/milk-can-1990075_1920.jpg';
+import huevos from '../../assets/eggs-2048476_1920.jpg';
+import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
-import type { colors } from '@mui/material';
+
+const {recursos} = Astro.params;
 ---
 
 <Layout>

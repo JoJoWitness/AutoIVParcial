@@ -2,6 +2,35 @@
 import logo from '../../assets/BakeryLogo.svg'
 import Button from '../elements/Button.astro'
 
+
+
+let restockDay = 6
+
+
+
+let realBreadMaded = 100 + Math.floor(Math.random() * 5)
+let realCookiesMaded = 150 + Math.floor(Math.random() * 2)
+let realCupcakesMaded = 200 + Math.floor(Math.random() * 10)
+
+let realBreadSold = 90 + Math.floor(Math.random() * 10)
+let realCookiesSold = 145 + Math.floor(Math.random() * 5)
+let realCupcakesSold = 195 + Math.floor(Math.random() * 5)
+
+let DailyFlourUsed = 65 + Math.floor(Math.random() * 1)
+let DailySugarUsed = 28 + Math.floor(Math.random() * 2)
+let DailyButterUsed = 30 + Math.floor(Math.random() * 2)
+let DailyEggsUsed = 100 + Math.floor(Math.random() * 5)
+let DailyMilkUsed = 8 + Math.floor(Math.random() * 1)
+
+let weeklyFlourRestock = 330
+let weeklySugarRestock = 150
+let weeklyButterRestock = 160
+let weeklyEggsRestock = 525
+let weeklyMilkRestock = 45
+
+
+
+
 ---
 
 <nav class="h-full flex flex-col items-center p-10 w-1/4" >
