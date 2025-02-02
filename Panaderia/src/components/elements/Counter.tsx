@@ -81,6 +81,9 @@ const handleClick = async () => {
       "viernes.0": 0,
       "viernes.1": 0,
       "viernes.2": 0,
+      "current.0": 0,
+      "current.1": 0,
+      "current.2": 0,
       })
   
     await updateDoc(doc(db, 'panaderia', 'produccion'), {
@@ -135,6 +138,9 @@ const handleClick = async () => {
         'ayer.1': 0,
         'ayer.2': 0,
         'dias': arrayUnion(currentDay+1),
+        [`totalesPan.${currentDay+1}`]: 0,
+        [`totalesGalletas.${currentDay+1}`]: 0,
+        [`totalesPonques.${currentDay+1}`]: 0
         })
         console.log("Document successfully updated!");
         
@@ -187,9 +193,9 @@ const handleClick = async () => {
           'totales.1': increment(realCookiesSold),
           'totales.2': increment(realCupcakesSold),
           'dias': arrayUnion(currentDay+1),
-          'totalesPan': arrayUnion(realBreadSold),
-          'totalesGalletas': arrayUnion(realCookiesSold),
-          'totalesPonques': arrayUnion(realCupcakesSold)
+          [`totalesPan.${currentDay+1}`]: realBreadSold,
+          [`totalesGalletas.${currentDay+1}`]: realCookiesSold,
+          [`totalesPonques.${currentDay+1}`]: realCupcakesSold
           })
           console.log("Document successfully updated!");
           window.location.reload();
@@ -200,6 +206,8 @@ const handleClick = async () => {
  
   
 };
+
+
 
 
 

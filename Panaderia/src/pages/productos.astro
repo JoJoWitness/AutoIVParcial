@@ -1,9 +1,9 @@
 ---
-import Layout, { db } from '../../layouts/Layout.astro';
-import pan from '../../assets/loaf-7445434_1920.jpg';
-import galletas from "../../assets/cookies-8082386_1920.jpg"
-import ponques from "../../assets/muffin-4430010_1920.jpg"
-import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
+import Layout, { db } from '../layouts/Layout.astro';
+import pan from '../assets/loaf-7445434_1920.jpg';
+import galletas from "../assets/cookies-8082386_1920.jpg"
+import ponques from "../assets/muffin-4430010_1920.jpg"
+import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
 import { doc, getDoc } from 'firebase/firestore';
 
@@ -49,7 +49,7 @@ console.log(productos)
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de pan de ayer</p>
           <!-- @ts-ignore -->
-        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][0] : products[productos][0]} img={pan}/>
+        <HorizontalImgContainer current={products['current'][0]} img={pan}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -80,7 +80,7 @@ console.log(productos)
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
           <!-- @ts-ignore -->
-        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][1] : products[productos][1]} img={galletas}/>
+        <HorizontalImgContainer current={products['current'][1]} img={galletas}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -110,7 +110,7 @@ console.log(productos)
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
           <!-- @ts-ignore -->
-        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][2] : products[productos][2]} img={ponques}/>
+        <HorizontalImgContainer current={products['current'][2]} img={ponques}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 

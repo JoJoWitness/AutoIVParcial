@@ -1,14 +1,14 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import harina from '../../assets/flour-791839_1920.jpg'
-import azucar from '../../assets/sugar-cubes-258116_1920.jpg'
-import mantequilla from '../../assets/food-3179853_1920.jpg'
-import leche from '../../assets/milk-can-1990075_1920.jpg';
-import huevos from '../../assets/eggs-2048476_1920.jpg';
-import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
+import Layout from '../layouts/Layout.astro';
+import harina from '../assets/flour-791839_1920.jpg'
+import azucar from '../assets/sugar-cubes-258116_1920.jpg'
+import mantequilla from '../assets/food-3179853_1920.jpg'
+import leche from '../assets/milk-can-1990075_1920.jpg';
+import huevos from '../assets/eggs-2048476_1920.jpg';
+import HorizontalImgContainer from '../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../../layouts/Layout.astro';
+import { db } from '../layouts/Layout.astro';
 
 const {recursos} = Astro.params;
 
@@ -39,7 +39,7 @@ ingredientes = await fetchData();
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de harina (kg)</p>
         <!-- @ts-ignore -->
-        <HorizontalImgContainer current={ingredientes[recursos][0]} img={harina}/>
+        <HorizontalImgContainer current={ingredientes['current'][0]} img={harina}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -68,7 +68,7 @@ ingredientes = await fetchData();
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de azucar (kg)</p>
          <!-- @ts-ignore -->
-        <HorizontalImgContainer current={ingredientes[recursos][1]} img={azucar}/>
+        <HorizontalImgContainer current={ingredientes['current'][1]} img={azucar}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -98,7 +98,7 @@ ingredientes = await fetchData();
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de mantequilla (kg)</p>
          <!-- @ts-ignore -->
-        <HorizontalImgContainer current={ingredientes[recursos][2]} img={mantequilla}/>
+        <HorizontalImgContainer current={ingredientes['current'][2]} img={mantequilla}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -127,7 +127,7 @@ ingredientes = await fetchData();
     <div class="flex flex-col gap-8 h-full" >
       <p class="text-tertiary font-medium">Existencia de huevos (unidades)</p>
        <!-- @ts-ignore -->
-      <HorizontalImgContainer current={ingredientes[recursos][3]} img={huevos}/>
+      <HorizontalImgContainer current={ingredientes['current'][3]} img={huevos}/>
     </div>
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -156,7 +156,7 @@ ingredientes = await fetchData();
   <div class="flex flex-col gap-8 h-full" >
     <p class="text-tertiary font-medium">Existencia de leche (litros)</p>
      <!-- @ts-ignore -->
-    <HorizontalImgContainer current={ingredientes[recursos][4]} img={leche}/>
+    <HorizontalImgContainer current={ingredientes['current'][4]} img={leche}/>
   </div>
   <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
