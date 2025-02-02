@@ -2,6 +2,7 @@
 import { getFirestore } from "firebase/firestore";
 import Navbar from "../components/navbar/Navbar.astro";
 import "../styles/global.css";
+import logo from "../assets/BakeryLogo.svg";
 
 import { initializeApp } from 'firebase/app';
 
@@ -20,7 +21,7 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 
-``
+
 
 
 
@@ -32,9 +33,9 @@ export const db = getFirestore(app);
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/svg+xml" href='../assets/BakeryLogo.svg' />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Panaderia</title>
 	</head>
 	<body class="flex">
 		<Navbar />
