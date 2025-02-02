@@ -1,7 +1,7 @@
 ---
 
 
-import { collection, doc, DocumentReference, getDoc, getDocs, getFirestore, type DocumentData } from 'firebase/firestore'
+import {doc, getDoc} from 'firebase/firestore'
 import logo from '../../assets/BakeryLogo.svg'
 import Button from '../elements/Button.astro'
 import { app, db } from '../../layouts/Layout.astro'
@@ -54,14 +54,18 @@ ingredientes = await fetchDataIn();
     text='Inicio'
     path='/'
   />
+   <!-- @ts-ignore -->
   <Button
-    text='Producción'
     path=`/productos/${dayData.dia}`
+    text='Producción'
+    
   />
+  <!-- @ts-ignore -->
   <Button
     text='Ventas'
     path=`/ventas/${dayData.dia}`
   />
+  <!-- @ts-ignore -->
   <Button
     text='Existencia'
     path=`/recursos/${dayData.dia}`
@@ -69,7 +73,12 @@ ingredientes = await fetchDataIn();
   </div>
   
   <div class="flex flex-col gap-4 w-full items-center">
-    <p class="text-tertiary font-medium">Dia: <span class="font-bold">{dayData.numero}</span></p>
+    <p class="text-tertiary font-medium">Dia: 
+      <span class="font-bold">
+        <!-- @ts-ignore -->
+         {dayData.numero}
+      </span></p>
+      <!-- @ts-ignore -->
     <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:load/>
   </div>
 

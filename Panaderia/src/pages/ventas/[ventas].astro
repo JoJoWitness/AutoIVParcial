@@ -59,7 +59,9 @@ console.log(sales)
 									<p>Ponques</p>
 							</div>
 							</div>
+							  <!-- @ts-ignore -->
 								{sales['dias'].map((data) => (
+									// @ts-ignore
 									<DBcolumn 
 										day={data}
 										venta1={sales['totalesPan'][data]}
@@ -80,12 +82,18 @@ console.log(sales)
 		<div class="flex gap-4 w-full h-full justify-evenly bg-background rounded-[25px] px-12 py-10 max-h-[500px] items-center">
 			<div class="flex flex-col gap-10 ">
 				<p class="text-tertiary font-medium">Ventas de ayer</p>
+				  <!-- @ts-ignore -->
 				<PieChart
+				
 					series={[
 						{
+							
 							data: [
+								// @ts-ignore
 							{ id: 0, value: sales['ayer'][0], label: 'Pan' },
+							// @ts-ignore
 							{ id: 1, value: sales['ayer'][1], label: 'Galletas' },
+							// @ts-ignore
 							{ id: 2, value: sales['ayer'][2], label: 'Ponque' },
 							],
 						},
@@ -98,12 +106,16 @@ console.log(sales)
 			</div>
 			<div class="flex flex-col gap-10 ">
 				<p class="text-tertiary font-medium">Ventas de Totales</p>
+				  <!-- @ts-ignore -->
 				<PieChart
 					series={[
 						{
 							data: [
+								// @ts-ignore
 							{ id: 0, value: sales['totales'][0], label: 'Pan' },
+							// @ts-ignore
 							{ id: 1, value: sales['totales'][1], label: 'Galletas' },
+							// @ts-ignore
 							{ id: 2, value: sales['totales'][2], label: 'Ponque' },
 							],
 						},

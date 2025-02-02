@@ -48,12 +48,14 @@ console.log(productos)
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de pan de ayer</p>
+          <!-- @ts-ignore -->
         <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][0] : products[productos][0]} img={pan}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
       <div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de pan en la semana</p>
+        <!-- @ts-ignore -->
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
           series={[{ data: [products['lunes'][0], products['martes'][0], products['miercoles'][0], products['jueves'][0], products['viernes'][0]] }]}
@@ -66,19 +68,25 @@ console.log(productos)
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
-        <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.pan} Unidades </p>
+        <p class="text-tertiary font-bold text-3xl items-center">
+            <!-- @ts-ignore -->
+             {totalProducts.pan} 
+             Unidades 
+          </p>
       </div>
 		</div>
 
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
+          <!-- @ts-ignore -->
         <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][1] : products[productos][1]} img={galletas}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
       <div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
+          <!-- @ts-ignore -->
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
           series={[{ data: [products['lunes'][1], products['martes'][1], products['miercoles'][1], products['jueves'][1], products['viernes'][1]] }]}
@@ -91,6 +99,7 @@ console.log(productos)
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
+          <!-- @ts-ignore -->
         <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.galletas} docenas </p>
       </div>
      
@@ -100,12 +109,14 @@ console.log(productos)
     <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
+          <!-- @ts-ignore -->
         <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][2] : products[productos][2]} img={ponques}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
       <div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
+          <!-- @ts-ignore -->
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
           series={[{ data: [products['lunes'][2], products['martes'][2], products['miercoles'][2], products['jueves'][2], products['viernes'][2]] }]}
@@ -118,6 +129,7 @@ console.log(productos)
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
+          <!-- @ts-ignore -->
         <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.ponques} Unidades </p>
       </div>
 	
