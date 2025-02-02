@@ -7,8 +7,29 @@ import leche from '../../assets/milk-can-1990075_1920.jpg';
 import huevos from '../../assets/eggs-2048476_1920.jpg';
 import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../layouts/Layout.astro';
 
 const {recursos} = Astro.params;
+
+let ingredientes
+
+const fetchData = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'existenciaIngredientes'); 
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+
+ingredientes = await fetchData();
+
+
 ---
 
 <Layout>
@@ -17,7 +38,7 @@ const {recursos} = Astro.params;
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de harina (kg)</p>
-        <HorizontalImgContainer current={40} img={harina}/>
+        <HorizontalImgContainer current={ingredientes[recursos][0]} img={harina}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -25,9 +46,9 @@ const {recursos} = Astro.params;
         <p class="text-tertiary font-medium">Existencia de harina en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Sabado', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [220, 178, 138, 93, 53, 3] }]}
+          series={[{ data: [ingredientes['sabado'][0],ingredientes['lunes'][0], ingredientes['martes'][0], ingredientes['miercoles'][0], ingredientes['jueves'][0], ingredientes['viernes'][0]] }]}
           width={450}
-          height={220}
+          height={220}sss
           client:load
           colors={['#ffcc73']}
         />
@@ -35,7 +56,7 @@ const {recursos} = Astro.params;
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Ultimo abastecimiento </p>
-        <p class="text-tertiary font-bold text-3xl items-center">Dia 6 </p>
+        <p class="text-tertiary font-bold text-3xl items-center">Dia: {ingredientes['abastecimiento']} </p>
       </div>
       
 		</div>
@@ -43,7 +64,7 @@ const {recursos} = Astro.params;
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de azucar (kg)</p>
-        <HorizontalImgContainer current={70} img={azucar}/>
+        <HorizontalImgContainer current={ingredientes[recursos][1]} img={azucar}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -51,7 +72,7 @@ const {recursos} = Astro.params;
         <p class="text-tertiary font-medium">Existencia de harina en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Sabado', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [200, 165, 127, 94, 59, 21] }]}
+          series={[{ data: [ingredientes['sabado'][1],ingredientes['lunes'][1], ingredientes['martes'][1], ingredientes['miercoles'][1], ingredientes['jueves'][1], ingredientes['viernes'][1]]}]}
           width={450}
           height={220}
           client:load
@@ -61,7 +82,7 @@ const {recursos} = Astro.params;
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Ultimo abastecimiento </p>
-        <p class="text-tertiary font-bold text-3xl items-center">Dia 6 </p>
+        <p class="text-tertiary font-bold text-3xl items-center">Dia: {ingredientes['abastecimiento']} </p>
       </div>
      
 			
@@ -70,7 +91,7 @@ const {recursos} = Astro.params;
     <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Existencia de mantequilla (kg)</p>
-        <HorizontalImgContainer current={59} img={mantequilla}/>
+        <HorizontalImgContainer current={ingredientes[recursos][2]} img={mantequilla}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -78,7 +99,7 @@ const {recursos} = Astro.params;
         <p class="text-tertiary font-medium">Existencia de mantequilla en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Sabado', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [185, 150, 118, 82, 51, 13] }]}
+          series={[{ data: [ingredientes['sabado'][2],ingredientes['lunes'][2], ingredientes['martes'][2], ingredientes['miercoles'][2], ingredientes['jueves'][2], ingredientes['viernes'][2]] }]}
           width={450}
           height={220}
           client:load
@@ -88,23 +109,23 @@ const {recursos} = Astro.params;
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Ultimo abastecimiento </p>
-        <p class="text-tertiary font-bold text-3xl items-center">Dia 6 </p>
+        <p class="text-tertiary font-bold text-3xl items-center">Dia: {ingredientes['abastecimiento']} </p>
       </div>
 	
 	</div>
 
   <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
     <div class="flex flex-col gap-8 h-full" >
-      <p class="text-tertiary font-medium">Existencia de Leche (litros)</p>
-      <HorizontalImgContainer current={59} img={leche}/>
+      <p class="text-tertiary font-medium">Existencia de huevos (unidades)</p>
+      <HorizontalImgContainer current={ingredientes[recursos][3]} img={huevos}/>
     </div>
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
     <div class="flex flex-col gap-8 h-full" >
-      <p class="text-tertiary font-medium">Existencia de leche en la semana</p>
+      <p class="text-tertiary font-medium">Existencia de huevos en la semana</p>
       <BarChart
         xAxis={[{ scaleType: 'band', data: ['Sabado', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-        series={[{ data: [100, 82, 65, 49, 31, 11] }]}
+        series={[{ data: [ingredientes['sabado'][3],ingredientes['lunes'][3], ingredientes['martes'][3], ingredientes['miercoles'][3], ingredientes['jueves'][3], ingredientes['viernes'][3]]}]}
         width={450}
         height={220}
         client:load
@@ -114,23 +135,23 @@ const {recursos} = Astro.params;
   <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
     <div class="flex flex-col gap-12 h-full" >
       <p class="text-tertiary font-medium">Ultimo abastecimiento </p>
-      <p class="text-tertiary font-bold text-3xl items-center">Dia 6 </p>
+      <p class="text-tertiary font-bold text-3xl items-center">Dia: {ingredientes['abastecimiento']}</p>
     </div>
 
 </div>
 
 <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
   <div class="flex flex-col gap-8 h-full" >
-    <p class="text-tertiary font-medium">Existencia de Huevos (unidades)</p>
-    <HorizontalImgContainer current={8} img={huevos}/>
+    <p class="text-tertiary font-medium">Existencia de leche (litros)</p>
+    <HorizontalImgContainer current={ingredientes[recursos][4]} img={leche}/>
   </div>
   <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
   <div class="flex flex-col gap-8 h-full" >
-    <p class="text-tertiary font-medium">Existencia de huevos</p>
+    <p class="text-tertiary font-medium">Existencia de leche</p>
     <BarChart
       xAxis={[{ scaleType: 'band', data: ['Sabado', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-      series={[{ data: [270, 215, 165, 111, 61, 8] }]}
+      series={[{ data: [ingredientes['sabado'][4],ingredientes['lunes'][4], ingredientes['martes'][4], ingredientes['miercoles'][4], ingredientes['jueves'][4], ingredientes['viernes'][4]] }]}
       width={450}
       height={220}
       client:load
@@ -140,7 +161,7 @@ const {recursos} = Astro.params;
 <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
   <div class="flex flex-col gap-12 h-full" >
     <p class="text-tertiary font-medium">Ultimo abastecimiento </p>
-    <p class="text-tertiary font-bold text-3xl items-center">Dia 6 </p>
+    <p class="text-tertiary font-bold text-3xl items-center">Dia: {ingredientes['abastecimiento']} </p>
   </div>
 
 </div>

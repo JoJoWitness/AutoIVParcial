@@ -6,9 +6,19 @@ import pan from '../assets/loaf-7445434_1920.jpg';
 import galletas from "../assets/cookies-8082386_1920.jpg"
 import ponques from "../assets/muffin-4430010_1920.jpg"
 import { PieChart } from '@mui/x-charts/PieChart';
+import { collection, getDocs } from "firebase/firestore"; 
+import { db } from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const querySnapshot = await getDocs(collection(db, "panaderia"));
+const docs = querySnapshot.docs
+
+let dias = docs[0].data(), 
+	ingredientes = docs[1].data(), 
+	productos = docs[2].data(), 
+	produccion = docs[3].data(),
+	ventas = docs[4].data();
+
+
 ---
 
 <Layout>
@@ -16,20 +26,20 @@ import { PieChart } from '@mui/x-charts/PieChart';
 		<div class="flex flex-col gap-4 w-full h-full bg-background rounded-[25px] p-6 max-h-[500px]">
 			<p class="text-tertiary font-medium">Materia Prima</p>
 			<div class="flex justify-center gap-8 w-full h-full">
-			<IngredientBar text='Harina' total={140} current={60} unit='kg' />
-			<IngredientBar text='Azucar' total={120} current={90} unit='kg' />
-			<IngredientBar text='Mantequilla' total={120} current={80} unit='kg' />
-			<IngredientBar text='Huevos' total={300} current={120} unit='U' />
-			<IngredientBar text='Leche' total={80} current={40} unit='L' />
+			<IngredientBar text='Harina' total={400} current={ingredientes[dias.dia][0]} unit='kg' />
+			<IngredientBar text='Azucar' total={200} current={ingredientes[dias.dia][1]} unit='kg' />
+			<IngredientBar text='Mantequilla' total={210} current={ingredientes[dias.dia][2]} unit='kg' />
+			<IngredientBar text='Huevos' total={600} current={ingredientes[dias.dia][3]} unit='U' />
+			<IngredientBar text='Leche' total={70} current={ingredientes[dias.dia][4]} unit='L' />
 		
 		</div>
 		</div>
 		<div class="flex flex-col gap-4 w-full h-full bg-background rounded-[25px] p-6 max-h-[500px]">
 			<p class="text-tertiary font-medium">Existencia de productos</p>
 			<div class="flex justify-center gap-8 w-full h-full">
-				<VerticalImgContainer title={"Pan"} current={50} img={pan} />
-				<VerticalImgContainer title={"Galletas"} current={200} img={galletas} />
-				<VerticalImgContainer title={"Ponques"} current={40} img={ponques} />
+				<VerticalImgContainer title={"Pan"} current={produccion.pan} img={pan} />
+				<VerticalImgContainer title={"Galletas"} current={produccion.galletas} img={galletas} />
+				<VerticalImgContainer title={"Ponques"} current={produccion.ponques} img={ponques} />
 			</div>
 			
 		</div>
@@ -43,9 +53,9 @@ import { PieChart } from '@mui/x-charts/PieChart';
 				series={[
 					{
 						data: [
-							{ id: 0, value: 38, label: 'Pan' },
-							{ id: 1, value: 120, label: 'Galletas' },
-							{ id: 2, value: 75, label: 'Ponque' },
+							{ id: 0, value: ventas['ayer'][0], label: 'Pan' },
+							{ id: 1, value: ventas['ayer'][1], label: 'Galletas' },
+							{ id: 2, value: ventas['ayer'][2], label: 'Ponque' },
 						],
 					},
 				]}
@@ -62,9 +72,9 @@ import { PieChart } from '@mui/x-charts/PieChart';
 				series={[
 					{
 						data: [
-							{ id: 0, value: 1162, label: 'Pan' },
-							{ id: 1, value: 2570, label: 'Galletas' },
-							{ id: 2, value: 1800, label: 'Ponque' },
+							{ id: 0, value: ventas['totales'][0], label: 'Pan' },
+							{ id: 1, value: ventas['totales'][1], label: 'Galletas' },
+							{ id: 2, value: ventas['totales'][2], label: 'Ponque' },
 						],
 					},
 				]}

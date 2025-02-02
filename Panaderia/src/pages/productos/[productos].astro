@@ -1,14 +1,45 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout, { db } from '../../layouts/Layout.astro';
 import pan from '../../assets/loaf-7445434_1920.jpg';
 import galletas from "../../assets/cookies-8082386_1920.jpg"
 import ponques from "../../assets/muffin-4430010_1920.jpg"
 import HorizontalImgContainer from '../../components/elements/HorizontalImgContainer.astro';
 import { BarChart } from '@mui/x-charts';
+import { doc, getDoc } from 'firebase/firestore';
 
 const {productos} = Astro.params;
+let products, totalProducts
 
-console.log("ryuk " + productos);
+const fetchDataProducts = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'existenciaProductos'); 
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+
+const fetchDataTotalProduct = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'produccion'); 
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log(docSnap.data())
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+
+products = await fetchDataProducts();
+totalProducts = await fetchDataTotalProduct();
+console.log(productos)
 ---
 
 <Layout>
@@ -17,7 +48,7 @@ console.log("ryuk " + productos);
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de pan de ayer</p>
-        <HorizontalImgContainer current={40} img={pan}/>
+        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][0] : products[productos][0]} img={pan}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -25,7 +56,7 @@ console.log("ryuk " + productos);
         <p class="text-tertiary font-medium">Producción de pan en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [40, 43, 38, 41, 40] }]}
+          series={[{ data: [products['lunes'][0], products['martes'][0], products['miercoles'][0], products['jueves'][0], products['viernes'][0]] }]}
           width={450}
           height={220}
           client:load
@@ -35,14 +66,14 @@ console.log("ryuk " + productos);
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
-        <p class="text-tertiary font-bold text-3xl items-center">50 Unidades </p>
+        <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.pan} Unidades </p>
       </div>
 		</div>
 
 		<div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
-        <HorizontalImgContainer current={70} img={galletas}/>
+        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][1] : products[productos][1]} img={galletas}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -50,7 +81,7 @@ console.log("ryuk " + productos);
         <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [70, 68, 69, 67, 70] }]}
+          series={[{ data: [products['lunes'][1], products['martes'][1], products['miercoles'][1], products['jueves'][1], products['viernes'][1]] }]}
           width={450}
           height={220}
           client:load
@@ -60,7 +91,7 @@ console.log("ryuk " + productos);
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
-        <p class="text-tertiary font-bold text-3xl items-center">70 docenas </p>
+        <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.galletas} docenas </p>
       </div>
      
 			
@@ -69,7 +100,7 @@ console.log("ryuk " + productos);
     <div class="flex gap-4 w-full h-full bg-background rounded-[25px] px-12 py-6 max-h-[500px] items-center mb-[30px]">
 			<div class="flex flex-col gap-8 h-full" >
         <p class="text-tertiary font-medium">Producción de galleta de ayer</p>
-        <HorizontalImgContainer current={59} img={ponques}/>
+        <HorizontalImgContainer current={productos == "sabado" ? products['lunes'][2] : products[productos][2]} img={ponques}/>
       </div>
       <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -77,7 +108,7 @@ console.log("ryuk " + productos);
         <p class="text-tertiary font-medium">Producción de galletas en la semana</p>
         <BarChart
           xAxis={[{ scaleType: 'band', data: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'], }]}
-          series={[{ data: [60, 62, 65, 58, 59] }]}
+          series={[{ data: [products['lunes'][2], products['martes'][2], products['miercoles'][2], products['jueves'][2], products['viernes'][2]] }]}
           width={450}
           height={220}
           client:load
@@ -87,7 +118,7 @@ console.log("ryuk " + productos);
     <div class="h-3/4 w-[2px] mx-8 bg-primary"/>
       <div class="flex flex-col gap-12 h-full" >
         <p class="text-tertiary font-medium">Existencia </p>
-        <p class="text-tertiary font-bold text-3xl items-center">120 Unidades </p>
+        <p class="text-tertiary font-bold text-3xl items-center">{totalProducts.ponques} Unidades </p>
       </div>
 	
 	</div>

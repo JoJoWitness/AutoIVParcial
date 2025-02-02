@@ -3,21 +3,29 @@
 import Layout from '../../layouts/Layout.astro';
 import { PieChart } from '@mui/x-charts/PieChart';
 import { DBcolumn } from '../../components/elements/dbColumn';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../../layouts/Layout.astro';
 
-const dbColumnsData = [
-  { day: 1, venta1: 10, venta2: 20, venta3: 30 },
-  { day: 2, venta1: 15, venta2: 25, venta3: 35 },
-  { day: 3, venta1: 20, venta2: 30, venta3: 40 },
-  { day: 4, venta1: 25, venta2: 35, venta3: 45 },
-  { day: 5, venta1: 30, venta2: 40, venta3: 50 },
-  { day: 6, venta1: 35, venta2: 45, venta3: 55 },
-  { day: 7, venta1: 40, venta2: 50, venta3: 60 },
-  { day: 8, venta1: 45, venta2: 55, venta3: 65 },
-  { day: 9, venta1: 50, venta2: 60, venta3: 70 },
-  { day: 10, venta1: 55, venta2: 65, venta3: 75 },
-];
+let sales
+
+const fetchData = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'ventas'); 
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+
 
 const {ventas} = Astro.params;
+
+sales = await fetchData();
+console.log(sales)
 
 ---
 
@@ -51,8 +59,14 @@ const {ventas} = Astro.params;
 									<p>Ponques</p>
 							</div>
 							</div>
-								{dbColumnsData.map((data) => (
-									<DBcolumn  {...data} />
+								{sales['dias'].map((data) => (
+									<DBcolumn 
+										day={data}
+										venta1={sales['totalesPan'][data]}
+										venta2={sales['totalesGalletas'][data]}
+										venta3={sales['totalesPonques'][data]}
+									
+									/>
 							))}
 						</div>
 						
@@ -70,9 +84,9 @@ const {ventas} = Astro.params;
 					series={[
 						{
 							data: [
-								{ id: 0, value: 38, label: 'Pan' },
-								{ id: 1, value: 120, label: 'Galletas' },
-								{ id: 2, value: 75, label: 'Ponque' },
+							{ id: 0, value: sales['ayer'][0], label: 'Pan' },
+							{ id: 1, value: sales['ayer'][1], label: 'Galletas' },
+							{ id: 2, value: sales['ayer'][2], label: 'Ponque' },
 							],
 						},
 					]}
@@ -88,9 +102,9 @@ const {ventas} = Astro.params;
 					series={[
 						{
 							data: [
-								{ id: 0, value: 1162, label: 'Pan' },
-								{ id: 1, value: 2570, label: 'Galletas' },
-								{ id: 2, value: 1800, label: 'Ponque' },
+							{ id: 0, value: sales['totales'][0], label: 'Pan' },
+							{ id: 1, value: sales['totales'][1], label: 'Galletas' },
+							{ id: 2, value: sales['totales'][2], label: 'Ponque' },
 							],
 						},
 					]}

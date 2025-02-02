@@ -1,35 +1,45 @@
 ---
+
+
+import { collection, doc, DocumentReference, getDoc, getDocs, getFirestore, type DocumentData } from 'firebase/firestore'
 import logo from '../../assets/BakeryLogo.svg'
 import Button from '../elements/Button.astro'
+import { app, db } from '../../layouts/Layout.astro'
+import {Counter} from '../elements/Counter.tsx'
 
 
 
-let restockDay = 6
+
+let dayData, ingredientes;
+
+const fetchData = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'dia'); 
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+
+dayData = await fetchData();
 
 
-
-let realBreadMaded = 100 + Math.floor(Math.random() * 5)
-let realCookiesMaded = 150 + Math.floor(Math.random() * 2)
-let realCupcakesMaded = 200 + Math.floor(Math.random() * 10)
-
-let realBreadSold = 90 + Math.floor(Math.random() * 10)
-let realCookiesSold = 145 + Math.floor(Math.random() * 5)
-let realCupcakesSold = 195 + Math.floor(Math.random() * 5)
-
-let DailyFlourUsed = 65 + Math.floor(Math.random() * 1)
-let DailySugarUsed = 28 + Math.floor(Math.random() * 2)
-let DailyButterUsed = 30 + Math.floor(Math.random() * 2)
-let DailyEggsUsed = 100 + Math.floor(Math.random() * 5)
-let DailyMilkUsed = 8 + Math.floor(Math.random() * 1)
-
-let weeklyFlourRestock = 330
-let weeklySugarRestock = 150
-let weeklyButterRestock = 160
-let weeklyEggsRestock = 525
-let weeklyMilkRestock = 45
-
-
-
+const fetchDataIn = async () => {
+  try {
+    const docRef = doc(db, 'panaderia', 'existenciaIngredientes'); 
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return  docSnap.data();
+    } 
+  } catch (error) {
+    console.error('Error fetching document from Firestore:', error);
+  }
+};
+ingredientes = await fetchDataIn();
 
 ---
 
@@ -46,23 +56,21 @@ let weeklyMilkRestock = 45
   />
   <Button
     text='Producción'
-    path='/productos'
+    path=`/productos/${dayData.dia}`
   />
   <Button
     text='Ventas'
-    path='/ventas'
+    path=`/ventas/${dayData.dia}`
   />
   <Button
     text='Existencia'
-    path='/recursos'
+    path=`/recursos/${dayData.dia}`
   />
   </div>
   
   <div class="flex flex-col gap-4 w-full items-center">
-    <p class="text-tertiary font-medium">Dia: <span class="font-bold">1</span></p>
-    <button class="rounded-[30px] border font-bold w-4/5 border-3 p-2 border-tertiary bg-tertiary text-background cursor-pointer  active:scale-95">
-      Siguiente dia
-    </button>
+    <p class="text-tertiary font-medium">Dia: <span class="font-bold">{dayData.numero}</span></p>
+    <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:load/>
   </div>
 
 </nav>
