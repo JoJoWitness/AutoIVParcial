@@ -1,5 +1,5 @@
 import { arrayUnion, doc, FieldValue, getDoc, increment, updateDoc } from "firebase/firestore";
-import { db } from "../../layouts/Layout.astro";
+import { db } from "../../layouts/Layout.astro"
 
 interface CounterProps {
   diaS : number;

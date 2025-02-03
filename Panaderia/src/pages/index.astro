@@ -33,7 +33,7 @@ let produccion
 
 const fetchDataProducts = async () => {
   try {
-    const docRef = doc(db, 'panaderia', 'existenciaProductos'); 
+    const docRef = doc(db, 'panaderia', 'produccion'); 
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -68,6 +68,7 @@ ventas = await fetchDataVentas();
 let dias
 
 const fetchDataDias = async () => {
+	console.log('Hello Ryuk')
   try {
     const docRef = doc(db, 'panaderia', 'dia'); 
     const docSnap = await getDoc(docRef);
@@ -93,15 +94,15 @@ dias = await fetchDataDias();
 			<p class="text-tertiary font-medium">Materia Prima</p>
 			<div class="flex justify-center gap-8 w-full h-full">
 			<!-- @ts-ignore -->
-			<IngredientBar text='Harina' total={400} current={ingredientes[dias.dia][0]} unit='kg' />
+			<IngredientBar text='Harina' total={600} current={ingredientes[dias.dia][0]} unit='kg' />
 			<!-- @ts-ignore -->
-			<IngredientBar text='Azucar' total={200} current={ingredientes[dias.dia][1]} unit='kg' />
+			<IngredientBar text='Azucar' total={300} current={ingredientes[dias.dia][1]} unit='kg' />
 			<!-- @ts-ignore -->
-			<IngredientBar text='Mantequilla' total={210} current={ingredientes[dias.dia][2]} unit='kg' />
+			<IngredientBar text='Mantequilla' total={300} current={ingredientes[dias.dia][2]} unit='kg' />
 			<!-- @ts-ignore -->
-			<IngredientBar text='Huevos' total={600} current={ingredientes[dias.dia][3]} unit='U' />
+			<IngredientBar text='Huevos' total={700} current={ingredientes[dias.dia][3]} unit='U' />
 			<!-- @ts-ignore -->
-			<IngredientBar text='Leche' total={70} current={ingredientes[dias.dia][4]} unit='L' />
+			<IngredientBar text='Leche' total={80} current={ingredientes[dias.dia][4]} unit='L' />
 		
 		</div>
 		</div>
