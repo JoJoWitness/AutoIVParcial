@@ -20,7 +20,7 @@ interface CounterProps {
 
 export const Counter: React.FC<CounterProps> = ({diaS, semanaData, currentDay, dayName, ingredientes})=> {
 
-(dayName)
+
 
 let realBreadMaded = 100 + Math.floor(Math.random() * 5)
 let realCookiesMaded = 150 + Math.floor(Math.random() * 2)
@@ -94,16 +94,16 @@ const handleClick = async () => {
     
   
     await updateDoc(doc(db, 'panaderia', 'existenciaIngredientes'), {
-      [`${semanaData[diaSemana]}.0`]: (ingredientes["0"] + weeklyFlourRestock),
-      [`${semanaData[diaSemana]}.1`]: (ingredientes["1"] + weeklySugarRestock),
-      [`${semanaData[diaSemana]}.2`]: (ingredientes["2"] + weeklyButterRestock),
-      [`${semanaData[diaSemana]}.3`]: (ingredientes["3"] + weeklyEggsRestock),
-      [`${semanaData[diaSemana]}.4`]: (ingredientes["4"] + weeklyMilkRestock),
-      'current.0': increment(weeklyFlourRestock),
-      'current.1': increment(weeklySugarRestock),
-      'current.2': increment(weeklyButterRestock),
-      'current.3': increment(weeklyEggsRestock),
-      'current.4': increment(weeklyMilkRestock),
+      [`${semanaData[diaSemana]}.0`]: (weeklyFlourRestock),
+      [`${semanaData[diaSemana]}.1`]: (weeklySugarRestock),
+      [`${semanaData[diaSemana]}.2`]: (weeklyButterRestock),
+      [`${semanaData[diaSemana]}.3`]: (weeklyEggsRestock),
+      [`${semanaData[diaSemana]}.4`]: (weeklyMilkRestock),
+      'current.0': increment(weeklyFlourRestock - ingredientes["0"] ),
+      'current.1': increment(weeklySugarRestock - ingredientes["1"]),
+      'current.2': increment(weeklyButterRestock - ingredientes["2"]),
+      'current.3': increment(weeklyEggsRestock - ingredientes["3"]),
+      'current.4': increment(weeklyMilkRestock - ingredientes["4"]),
       "lunes.0": 0,
       "lunes.1": 0,
       "lunes.2": 0,

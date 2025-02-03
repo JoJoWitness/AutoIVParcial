@@ -82,8 +82,8 @@ export const ProductComponent = () => {
         <p className="text-tertiary font-medium">Existencia </p>
         <p className="text-tertiary font-bold text-3xl items-center">
             {/* @ts-ignore */}
-             {totalProducts.pan} 
-             Unidades 
+             {totalProducts.pan} <br/>
+              Unidades 
           </p>
       </div>
 		</div>
@@ -112,7 +112,7 @@ export const ProductComponent = () => {
       <div className="flex flex-col gap-12 h-full" >
         <p className="text-tertiary font-medium">Existencia </p>
           {/* @ts-ignore */}
-        <p className="text-tertiary font-bold text-3xl items-center">{totalProducts.galletas} docenas </p>
+        <p className="text-tertiary font-bold text-3xl items-center">{totalProducts.galletas}<br/> docenas </p>
       </div>
      
 			
@@ -142,7 +142,7 @@ export const ProductComponent = () => {
       <div className="flex flex-col gap-12 h-full" >
         <p className="text-tertiary font-medium">Existencia </p>
           {/* @ts-ignore */}
-        <p className="text-tertiary font-bold text-3xl items-center">{totalProducts.ponques} Unidades </p>
+        <p className="text-tertiary font-bold text-3xl items-center">{totalProducts.ponques}<br/> Unidades </p>
       </div>
 	
 	</div>
