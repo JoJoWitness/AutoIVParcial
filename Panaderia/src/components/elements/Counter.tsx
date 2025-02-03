@@ -20,7 +20,7 @@ interface CounterProps {
 
 export const Counter: React.FC<CounterProps> = ({diaS, semanaData, currentDay, dayName, ingredientes})=> {
 
-console.log(dayName)
+(dayName)
 
 let realBreadMaded = 100 + Math.floor(Math.random() * 5)
 let realCookiesMaded = 150 + Math.floor(Math.random() * 2)
@@ -142,7 +142,7 @@ const handleClick = async () => {
         [`totalesGalletas.${currentDay+1}`]: 0,
         [`totalesPonques.${currentDay+1}`]: 0
         })
-        console.log("Document successfully updated!");
+
         
         window.location.reload();
     } catch (e) {
@@ -197,7 +197,7 @@ const handleClick = async () => {
           [`totalesGalletas.${currentDay+1}`]: realCookiesSold,
           [`totalesPonques.${currentDay+1}`]: realCupcakesSold
           })
-          console.log("Document successfully updated!");
+
           window.location.reload();
       } catch (e) {
         console.error("Error updating document: ", e);

@@ -1,7 +1,7 @@
 ---
 
 import Layout from '../layouts/Layout.astro';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart } from '@mui/x-charts';
 import { DBcolumn } from '../components/elements/dbColumn';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../layouts/Layout.astro';
@@ -22,10 +22,8 @@ const fetchData = async () => {
 };
 
 
-const {ventas} = Astro.params;
-
 sales = await fetchData();
-console.log(sales)
+
 
 ---
 

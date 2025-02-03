@@ -29,7 +29,6 @@ const fetchDataTotalProduct = async () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      console.log(docSnap.data())
       return  docSnap.data();
     } 
   } catch (error) {
@@ -39,7 +38,6 @@ const fetchDataTotalProduct = async () => {
 
 products = await fetchDataProducts();
 totalProducts = await fetchDataTotalProduct();
-console.log(productos)
 ---
 
 <Layout>
