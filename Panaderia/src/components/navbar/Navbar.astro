@@ -7,7 +7,7 @@ import Button from '../elements/Button.astro'
 import { app, db } from '../../layouts/Layout.astro'
 import {Counter} from '../elements/Counter.tsx'
 import { NumComponent } from '../elements/reactWorkAround/NumComponent'
-
+import  LogoutButton  from '../Auth/LogOut';
 
 
 
@@ -84,5 +84,6 @@ ingredientes = await fetchDataIn();
       <!-- @ts-ignore -->
     <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:load/>
   </div>
-
+  <br>
+  <LogoutButton/>
 </nav>

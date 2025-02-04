@@ -21,6 +21,7 @@ export default function Auth(){
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             console.log('Usuario autenticado: ', user);
+            window.location.href = '/';
         } catch (error: any) {
             setError(error.message);
         } finally {
@@ -33,6 +34,7 @@ export default function Auth(){
         try {
             setLoading(true);
             await signInWithEmailAndPassword(auth, email, password);
+            window.location.href = '/';
         } catch (error: any) {
             setError(error.message);
         } finally {
@@ -54,9 +56,9 @@ export default function Auth(){
 
     return(
         
-        <div className="container max-w-sm mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center h-150">
+        <div className="container max-w-sm mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center h-135 gap-4">
 
-        <img src={logo.src} alt="Logo" className="mb-4" style={{ height: '200px' }} />
+        <img src={logo.src} alt="Logo" className="mb-4" style={{ height: '230px' }} />
 
         {/* inicio de sesion con correo */}
         <form onSubmit={handleEmailSignIn} className="space-y-4 w-full flex flex-col items-center">
@@ -67,7 +69,7 @@ export default function Auth(){
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full p-2 border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
+                    className="w-full p-2 px-[40px] border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
             <div>
@@ -77,7 +79,7 @@ export default function Auth(){
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full p-2 border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
+                    className="w-full p-2 px-[40px] border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
             <button
@@ -88,7 +90,7 @@ export default function Auth(){
                 Iniciar sesión
             </button> 
         </form>
-        <br></br>
+        
         <button
             onClick={handleGoogleSignIn}
             disabled={loading}
