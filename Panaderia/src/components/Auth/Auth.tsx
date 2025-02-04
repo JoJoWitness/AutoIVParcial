@@ -42,18 +42,6 @@ export default function Auth(){
         }
     };
 
-    const handleSignUp = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            setLoading(true);
-            await createUserWithEmailAndPassword(auth, email, password);
-        } catch (error: any) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     return(
         
         <div className="container max-w-sm mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center h-135 gap-4">
