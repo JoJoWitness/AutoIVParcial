@@ -55,7 +55,7 @@ export default function Auth(){
         <img src={logo.src} alt="Logo" className="mb-[30px]" style={{ height: '230px' }} />
 
         {/* inicio de sesion con correo */}
-        <form onSubmit={handleEmailSignIn} className="space-y-4 w-full flex flex-col items-center">
+        {/* <form onSubmit={handleEmailSignIn} className="space-y-4 w-full flex flex-col items-center">
             <div>
                 <input
                     type="email"
@@ -83,7 +83,7 @@ export default function Auth(){
             >
                 Iniciar sesión
             </button> 
-        </form>
+        </form> */}
         
         <button
             onClick={handleGoogleSignIn}

@@ -1,27 +1,49 @@
 import { arrayUnion, doc, FieldValue, getDoc, increment, updateDoc } from "firebase/firestore";
 import { app, db } from "../../layouts/Layout.astro"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 
-interface CounterProps {
-  diaS : number;
-  semanaData: Array<number|string>;
-  currentDay: number
-  dayName: string
-  ingredientes: {
-    0: number,
-    1: number,
-    2: number,
-    3: number,
-    4: number
-  }
-}
 
 
   
 
-export const Counter: React.FC<CounterProps> = ({diaS, semanaData, currentDay, dayName, ingredientes})=> {
+export const Counter  = ()=> {
 
   const auth = getAuth(app);
+
+  const [dayData, setDayData] = useState<any>(null);
+  const [ingredientes, setIngredientes] = useState<any>(null);
+  
+    const fetchData = async () => {
+      try {
+        const docRef = doc(db, 'panaderia', 'dia'); 
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+          setDayData(docSnap.data());
+        } 
+      } catch (error) {
+        console.error('Error fetching document from Firestore:', error);
+    };
+  }
+  
+    useEffect(() => {
+      fetchDataIn();
+      fetchData();
+    }, []);
+
+    const fetchDataIn = async () => {
+      try {
+        const docRef = doc(db, 'panaderia', 'existenciaIngredientes'); 
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setIngredientes(docSnap.data().current);
+        } 
+      } catch (error) {
+        console.error('Error fetching document from Firestore:', error);
+      }
+    };
+
 
   
   onAuthStateChanged(auth, (user) => {
@@ -61,17 +83,17 @@ let weeklyMilkRestock = 45
 
 const handleClick = async () => {
   let diaSemana;
-  if (diaS == 5) {
+  if (dayData.semana[6] == 5) {
     diaSemana = 0;
   }
   else{
-    diaSemana = diaS + 1;
+    diaSemana = dayData.semana[6] + 1;
   }
 
-  if(dayName == "viernes"){
+  if(dayData.dia == "viernes"){
     try{
       await updateDoc(doc(db, 'panaderia', 'dia'), {
-      "dia": semanaData[diaSemana],
+      "dia": dayData.semana[diaSemana],
       "numero": increment(1),
       "semana.6": diaSemana
       })
@@ -105,11 +127,11 @@ const handleClick = async () => {
     
   
     await updateDoc(doc(db, 'panaderia', 'existenciaIngredientes'), {
-      [`${semanaData[diaSemana]}.0`]: (weeklyFlourRestock),
-      [`${semanaData[diaSemana]}.1`]: (weeklySugarRestock),
-      [`${semanaData[diaSemana]}.2`]: (weeklyButterRestock),
-      [`${semanaData[diaSemana]}.3`]: (weeklyEggsRestock),
-      [`${semanaData[diaSemana]}.4`]: (weeklyMilkRestock),
+      [`${dayData.semana[diaSemana]}.0`]: (weeklyFlourRestock),
+      [`${dayData.semana[diaSemana]}.1`]: (weeklySugarRestock),
+      [`${dayData.semana[diaSemana]}.2`]: (weeklyButterRestock),
+      [`${dayData.semana[diaSemana]}.3`]: (weeklyEggsRestock),
+      [`${dayData.semana[diaSemana]}.4`]: (weeklyMilkRestock),
       'current.0': increment(weeklyFlourRestock - ingredientes["0"] ),
       'current.1': increment(weeklySugarRestock - ingredientes["1"]),
       'current.2': increment(weeklyButterRestock - ingredientes["2"]),
@@ -140,7 +162,7 @@ const handleClick = async () => {
       "viernes.2": 0,
       "viernes.3": 0,
       "viernes.4": 0,
-      "abastecimiento": (currentDay+1)
+      "abastecimiento": (dayData.numero +1)
   
       })
   
@@ -148,10 +170,10 @@ const handleClick = async () => {
         'ayer.0': 0,
         'ayer.1': 0,
         'ayer.2': 0,
-        'dias': arrayUnion(currentDay+1),
-        [`totalesPan.${currentDay+1}`]: 0,
-        [`totalesGalletas.${currentDay+1}`]: 0,
-        [`totalesPonques.${currentDay+1}`]: 0
+        'dias': arrayUnion(dayData.numero+1),
+        [`totalesPan.${dayData.numero+1}`]: 0,
+        [`totalesGalletas.${dayData.numero+1}`]: 0,
+        [`totalesPonques.${dayData.numero+1}`]: 0
         })
 
         
@@ -163,15 +185,18 @@ const handleClick = async () => {
   else{
     try{
         await updateDoc(doc(db, 'panaderia', 'dia'), {
-        "dia": semanaData[diaSemana],
+        "dia": dayData.semana[diaSemana],
         "numero": increment(1),
         "semana.6": diaSemana
         })
     
       await updateDoc(doc(db, 'panaderia', 'existenciaProductos'), {
-        [`${semanaData[diaSemana]}.0`]: increment(realBreadMaded),
-        [`${semanaData[diaSemana]}.1`]: increment(realCookiesMaded),
-        [`${semanaData[diaSemana]}.2`]: increment(realCupcakesMaded)
+        [`${dayData.semana[diaSemana]}.0`]: realBreadMaded,
+        [`${dayData.semana[diaSemana]}.1`]: realCookiesMaded,
+        [`${dayData.semana[diaSemana]}.2`]: realCupcakesMaded,
+        "current.0": realBreadMaded,
+        "current.1": realCookiesMaded,
+        "current.2": realCupcakesMaded
         })
     
       await updateDoc(doc(db, 'panaderia', 'produccion'), {
@@ -182,12 +207,12 @@ const handleClick = async () => {
       
     
       await updateDoc(doc(db, 'panaderia', 'existenciaIngredientes'), {
-        [`${semanaData[diaSemana]}.0`]: (ingredientes["0"] - DailyFlourUsed),
-        [`${semanaData[diaSemana]}.1`]: (ingredientes["1"] - DailySugarUsed),
-        [`${semanaData[diaSemana]}.2`]: (ingredientes["2"] - DailyButterUsed),
-        [`${semanaData[diaSemana]}.3`]: (ingredientes["3"] - DailyEggsUsed),
-        [`${semanaData[diaSemana]}.4`]: (ingredientes["4"] - DailyMilkUsed),
-        'current.0':  increment(-DailyFlourUsed),
+        [`${dayData.semana[diaSemana]}.0`]: (ingredientes["0"] - DailyFlourUsed),
+        [`${dayData.semana[diaSemana]}.1`]: (ingredientes["1"] - DailySugarUsed),
+        [`${dayData.semana[diaSemana]}.2`]: (ingredientes["2"] - DailyButterUsed),
+        [`${dayData.semana[diaSemana]}.3`]: (ingredientes["3"] - DailyEggsUsed),
+        [`${dayData.semana[diaSemana]}.4`]: (ingredientes["4"] - DailyMilkUsed),
+        'current.0': increment(-DailyFlourUsed),
         'current.1': increment(-DailySugarUsed),
         'current.2': increment(-DailyButterUsed),
         'current.3': increment(-DailyEggsUsed),
@@ -203,10 +228,10 @@ const handleClick = async () => {
           'totales.0': increment(realBreadSold),
           'totales.1': increment(realCookiesSold),
           'totales.2': increment(realCupcakesSold),
-          'dias': arrayUnion(currentDay+1),
-          [`totalesPan.${currentDay+1}`]: realBreadSold,
-          [`totalesGalletas.${currentDay+1}`]: realCookiesSold,
-          [`totalesPonques.${currentDay+1}`]: realCupcakesSold
+          'dias': arrayUnion(dayData.numero+1),
+          [`totalesPan.${dayData.numero+1}`]: realBreadSold,
+          [`totalesGalletas.${dayData.numero+1}`]: realCookiesSold,
+          [`totalesPonques.${dayData.numero+1}`]: realCupcakesSold
           })
 
           window.location.reload();

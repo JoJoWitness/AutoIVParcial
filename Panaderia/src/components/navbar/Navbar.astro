@@ -13,20 +13,6 @@ import  LogoutButton  from '../Auth/LogOut';
 
 let dayData, ingredientes;
 
-const fetchData = async () => {
-  try {
-    const docRef = doc(db, 'panaderia', 'dia'); 
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return  docSnap.data();
-    } 
-  } catch (error) {
-    console.error('Error fetching document from Firestore:', error);
-  }
-};
-
-dayData = await fetchData();
 
 
 const fetchDataIn = async () => {
@@ -78,11 +64,11 @@ ingredientes = await fetchDataIn();
 
       <!-- @ts-ignore -->
    
-      <NumComponent number={dayData.numero} />
+      <NumComponent client:load />
     
     </p>
       <!-- @ts-ignore -->
-    <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:only/>
+    <Counter  client:only/>
   </div>
   <br>
   <LogoutButton client:load/>

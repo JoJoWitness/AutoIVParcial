@@ -1,0 +1,1 @@
+const t={src:"/_astro/loaf-7445434_1920.BePGPT7n.jpg",width:1297,height:1297,format:"jpg"},o={src:"/_astro/cookies-8082386_1920.kPLrWHkE.jpg",width:1280,height:1280,format:"jpg"},s={src:"/_astro/muffin-4430010_1920.PT8jo1nH.jpg",width:1080,height:1080,format:"jpg"};export{s as a,o as g,t as p};
