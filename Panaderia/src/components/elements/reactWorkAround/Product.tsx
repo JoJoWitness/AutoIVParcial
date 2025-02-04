@@ -60,7 +60,7 @@ export const ProductComponent = () => {
 			<div className="flex flex-col gap-8 h-full" >
         <p className="text-tertiary font-medium">Producción de pan de ayer</p>
            {/* @ts-ignore */}
-        <HorizontalImgContainer current={totalProducts.pan} img={pan}/>
+        <HorizontalImgContainer current={products.current[0]} img={pan}/>
       </div>
       <div className="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -92,7 +92,7 @@ export const ProductComponent = () => {
 			<div className="flex flex-col gap-8 h-full" >
         <p className="text-tertiary font-medium">Producción de galleta de ayer</p>
           {/* @ts-ignore */}
-        <HorizontalImgContainer current={totalProducts.galletas} img={galletas}/>
+        <HorizontalImgContainer current={products.current[1]} img={galletas}/>
       </div>
       <div className="h-3/4 w-[2px] mx-8 bg-primary"/>
 
@@ -122,7 +122,7 @@ export const ProductComponent = () => {
 			<div className="flex flex-col gap-8 h-full" >
         <p className="text-tertiary font-medium">Producción de galleta de ayer</p>
           {/* @ts-ignore */}
-        <HorizontalImgContainer current={totalProducts.ponques} img={ponques}/>
+        <HorizontalImgContainer current={products.current[2]} img={ponques}/>
       </div>
       <div className="h-3/4 w-[2px] mx-8 bg-primary"/>
 

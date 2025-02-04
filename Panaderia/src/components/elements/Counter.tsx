@@ -1,5 +1,6 @@
 import { arrayUnion, doc, FieldValue, getDoc, increment, updateDoc } from "firebase/firestore";
-import { db } from "../../layouts/Layout.astro"
+import { app, db } from "../../layouts/Layout.astro"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 interface CounterProps {
   diaS : number;
@@ -20,7 +21,17 @@ interface CounterProps {
 
 export const Counter: React.FC<CounterProps> = ({diaS, semanaData, currentDay, dayName, ingredientes})=> {
 
+  const auth = getAuth(app);
 
+  
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+    
+    } else {
+  
+      window.location.href = '/login'; 
+    }
+  });
 
 let realBreadMaded = 100 + Math.floor(Math.random() * 5)
 let realCookiesMaded = 150 + Math.floor(Math.random() * 2)
@@ -176,11 +187,11 @@ const handleClick = async () => {
         [`${semanaData[diaSemana]}.2`]: (ingredientes["2"] - DailyButterUsed),
         [`${semanaData[diaSemana]}.3`]: (ingredientes["3"] - DailyEggsUsed),
         [`${semanaData[diaSemana]}.4`]: (ingredientes["4"] - DailyMilkUsed),
-        'current.0': (ingredientes["0"] - DailyFlourUsed),
-        'current.1': (ingredientes["1"] - DailySugarUsed),
-        'current.2': (ingredientes["2"] - DailyButterUsed),
-        'current.3': (ingredientes["3"] - DailyEggsUsed),
-        'current.4': (ingredientes["4"] - DailyMilkUsed)
+        'current.0':  increment(-DailyFlourUsed),
+        'current.1': increment(-DailySugarUsed),
+        'current.2': increment(-DailyButterUsed),
+        'current.3': increment(-DailyEggsUsed),
+        'current.4': increment(-DailyMilkUsed)
     
     
         })

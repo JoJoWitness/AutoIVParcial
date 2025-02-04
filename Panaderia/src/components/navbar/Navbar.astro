@@ -82,7 +82,7 @@ ingredientes = await fetchDataIn();
     
     </p>
       <!-- @ts-ignore -->
-    <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:load/>
+    <Counter diaS={dayData['semana'][6]} semanaData={dayData['semana']} dayName={dayData.dia} currentDay={dayData.numero} ingredientes={ingredientes['current']}  client:only/>
   </div>
   <br>
   <LogoutButton client:load/>

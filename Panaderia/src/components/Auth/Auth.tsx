@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth';
 
 import { app } from '../../layouts/LayoutLog.astro';
 
 import logo from '../../assets/BakeryLogo.svg';
 
+import type { User } from 'firebase/auth';
+
 export default function Auth(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    
     const [error, setError] = useState<string | null>(null);
 
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
+
+    
+
     
     const handleGoogleSignIn = async () => {
         try {
@@ -44,9 +50,9 @@ export default function Auth(){
 
     return(
         
-        <div className="container max-w-sm mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center h-135 gap-4">
+        <div className="container max-w-sm mx-auto py-6 px-6 bg-white rounded-[35px] shadow-lg flex flex-col items-center justify-center  gap-4">
 
-        <img src={logo.src} alt="Logo" className="mb-4" style={{ height: '230px' }} />
+        <img src={logo.src} alt="Logo" className="mb-[30px]" style={{ height: '230px' }} />
 
         {/* inicio de sesion con correo */}
         <form onSubmit={handleEmailSignIn} className="space-y-4 w-full flex flex-col items-center">
@@ -57,7 +63,7 @@ export default function Auth(){
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="w-full p-2 px-[40px] border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
+                    className="w-[225px] p-2 text-center border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
             <div>
@@ -67,13 +73,13 @@ export default function Auth(){
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="w-full p-2 px-[40px] border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
+                    className="w-[225px] p-2 text-center border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
             <button
                 type="submit"
                 disabled={loading}
-                className="rounded-[30px] border border-secondary font-bold text-secondary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98"
+                className="rounded-[30px] border border-secondary font-bold text-secondary w-[225px] border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98 mt-[30px]"
             >
                 Iniciar sesión
             </button> 
@@ -82,7 +88,7 @@ export default function Auth(){
         <button
             onClick={handleGoogleSignIn}
             disabled={loading}
-            className="rounded-[30px] border border-secondary font-bold text-secondary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98"
+            className="rounded-[30px] border border-secondary font-bold text-secondary w-[225px] border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98"
         >
             Iniciar con Google
         </button>
