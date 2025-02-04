@@ -5,8 +5,8 @@ const LogoutButton = () => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      alert("Sesión cerrada exitosamente.");
       window.location.href = "/login";
+      alert("Sesión cerrada exitosamente.");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
