@@ -2,7 +2,9 @@ import React, {useEffect, useState} from "react";
 
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
-import { app } from '../../layouts/Layout.astro';
+import { app } from '../../layouts/LayoutLog.astro';
+
+import logo from '../../assets/BakeryLogo.svg';
 
 export default function Auth(){
     const [email, setEmail] = useState('');
@@ -51,11 +53,13 @@ export default function Auth(){
     };
 
     return(
-        <div>
-        <h2>Autenticación</h2>
+        
+        <div className="container max-w-sm mx-auto p-6 bg-white rounded-lg shadow-lg flex flex-col items-center justify-center h-150">
 
-        {/* inicio de sesion con correo*/}
-        <form onSubmit={handleEmailSignIn}>
+        <img src={logo.src} alt="Logo" className="mb-4" style={{ height: '200px' }} />
+
+        {/* inicio de sesion con correo */}
+        <form onSubmit={handleEmailSignIn} className="space-y-4 w-full flex flex-col items-center">
             <div>
                 <input
                     type="email"
@@ -63,6 +67,7 @@ export default function Auth(){
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
+                    className="w-full p-2 border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
             <div>
@@ -72,23 +77,29 @@ export default function Auth(){
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="w-full p-2 border-2 border-secondary rounded-md focus:outline-none focus:ring-2 focus:ring-brown"
                 />
             </div>
-            <button type="submit" disabled={loading}>
-                {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
-            </button>
+            <button
+                type="submit"
+                disabled={loading}
+                className="rounded-[30px] border border-secondary font-bold text-secondary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98"
+            >
+                Iniciar sesión
+            </button> 
         </form>
-
-        
-        <button onClick={handleGoogleSignIn} disabled={loading}>
-            {loading ? 'Cargando...' : 'Iniciar sesión con Google'}
+        <br></br>
+        <button
+            onClick={handleGoogleSignIn}
+            disabled={loading}
+            className="rounded-[30px] border border-secondary font-bold text-secondary w-4/5 border-3 p-2 hover:border-tertiary hover:bg-tertiary hover:text-background cursor-pointer active:scale-98"
+        >
+            Iniciar con Google
         </button>
 
+        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+        </div>
         
-        {error && <p>{error}</p>}
-    </div>
     )
 }
-
-
 
